@@ -114,11 +114,11 @@ export const clientConfig: ClientConfig = {
     tagline: "Kaagapay sa malamig na buhay",
   },
   brand: {
-    accent: "#f2dfae",
-    accentStrong: "#d2ae65",
-    ink: "#0d2a45",
+    accent: "#eaf2f8",
+    accentStrong: "#174a78",
+    ink: "#102f50",
     surface: "#fffaf0",
-    signal: "#d91f2b",
+    signal: "#c73543",
   },
   contact: {
     phoneLabel: "Phone number to be confirmed",

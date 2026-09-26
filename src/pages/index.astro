@@ -29,7 +29,7 @@ import { clientConfig as config, TODO_CLIENT_CONFIRMATION } from "../data/client
         <div class="section-heading"><div><p class="section-kicker">From the field</p><h2 id="work-title">Tatay Tim's aircon service work.</h2></div><p>Client-provided photos of air-conditioning service work.</p></div>
         <div class="work-gallery">
           {config.workGallery.map((photo) => (
-            <figure class="work-card"><img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" /><figcaption>{photo.caption}</figcaption></figure>
+            <figure class="work-card"><div class="work-card-media"><img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" /></div><figcaption>{photo.caption}</figcaption></figure>
           ))}
         </div>
       </div>
