@@ -5,6 +5,9 @@ export type HeroMedia =
       type: "image";
       src: string;
       alt: string;
+      width: number;
+      height: number;
+      caption?: string;
       permission: typeof TODO_CLIENT_CONFIRMATION | "approved";
     }
   | {
@@ -62,6 +65,8 @@ export interface ClientConfig {
   workGallery: Array<{
     src: string;
     alt: string;
+    width: number;
+    height: number;
     caption: string;
   }>;
   trustPoints: Array<{
@@ -131,8 +136,11 @@ export const clientConfig: ClientConfig = {
     trustChips: ["Split-type & window-type cleaning", "Maintenance, repair & installation", "Ask us about your unit"],
     media: {
       type: "image",
-      src: `${import.meta.env.BASE_URL}/media/tatay-tims-logo.jpeg`,
-      alt: "Tatay Tim's Aircon and Repairs badge logo with an illustrated technician",
+      src: `${import.meta.env.BASE_URL}/media/work/fb-aircon-repair.jpg`,
+      alt: "Technician inspecting an opened air-conditioning unit with repair tools",
+      width: 2048,
+      height: 2048,
+      caption: "Air-conditioning check-up and repair",
       permission: "approved",
     },
   },
@@ -162,28 +170,31 @@ export const clientConfig: ClientConfig = {
   ],
   workGallery: [
     {
-      src: `${import.meta.env.BASE_URL}/media/work/fb-aircon-repair.jpg`,
-      alt: "Technician inspecting an opened air-conditioning unit with repair tools",
-      caption: "Air-conditioning check-up and repair",
-    },
-    {
       src: `${import.meta.env.BASE_URL}/media/work/fb-split-type-aircon-installation.jpg`,
       alt: "Split-type air-conditioning unit and components during installation work",
+      width: 2048,
+      height: 2048,
       caption: "Split-type air-conditioning installation",
     },
     {
       src: `${import.meta.env.BASE_URL}/media/work/fb-split-type-aircon-recharging.jpg`,
       alt: "Technician working on an outdoor split-type air-conditioning unit with refrigerant equipment",
+      width: 960,
+      height: 960,
       caption: "Split-type air-conditioning recharging",
     },
     {
       src: `${import.meta.env.BASE_URL}/media/work/fb-split-type-aircon.jpg`,
       alt: "Technician servicing outdoor split-type air-conditioning units",
+      width: 2048,
+      height: 2048,
       caption: "Split-type air-conditioning service",
     },
     {
       src: `${import.meta.env.BASE_URL}/media/work/fb-wall-type-aircon.jpg`,
       alt: "Technician working beside a wall-type air-conditioning unit",
+      width: 1080,
+      height: 1440,
       caption: "Wall-type air-conditioning service",
     },
   ],

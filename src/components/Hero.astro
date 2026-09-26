@@ -23,7 +23,7 @@ const media = config.hero.media;
     {config.hero.variant === "media" && media ? (
       <figure class="hero-media">
         {media.type === "image" ? (
-          <img src={media.src} alt={media.alt} width="960" height="900" fetchpriority="high" />
+          <img src={media.src} alt={media.alt} width={media.width} height={media.height} fetchpriority="high" />
         ) : (
           <video controls playsinline muted poster={media.poster} preload="metadata">
             <source src={media.src} />
@@ -31,7 +31,7 @@ const media = config.hero.media;
           </video>
         )}
         {media.permission === TODO_CLIENT_CONFIRMATION && <figcaption>Media placeholder - client permission required before publishing</figcaption>}
-        <div class="media-card" aria-hidden="true"><strong>Tatay Tim's</strong><span>Kaagapay sa malamig na buhay</span></div>
+        {media.type === "image" && media.caption && <figcaption class="hero-media-caption">{media.caption}</figcaption>}
       </figure>
     ) : (
       <div class="hero-graphic" aria-hidden="true">
