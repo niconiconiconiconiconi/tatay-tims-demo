@@ -131,7 +131,7 @@ export const clientConfig: ClientConfig = {
     trustChips: ["Split-type & window-type cleaning", "Maintenance, repair & installation", "Ask us about your unit"],
     media: {
       type: "image",
-      src: `${import.meta.env.BASE_URL}media/tatay-tims-logo.jpeg`,
+      src: `${import.meta.env.BASE_URL}/media/tatay-tims-logo.jpeg`,
       alt: "Tatay Tim's Aircon and Repairs badge logo with an illustrated technician",
       permission: "approved",
     },
