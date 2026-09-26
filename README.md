@@ -2,7 +2,7 @@
 
 Mobile-first concept website for a local air-conditioning and refrigeration service business.
 
-This is a private-review concept published on GitHub Pages. It is not a finished or approved business website. Preview mode stays on, the quote form is a demo, and no contact details are configured.
+This is a public concept preview for client review, not a finished or approved business website. Preview mode keeps it out of search indexing but does not restrict access. The quote form is a demo, and no contact details are configured.
 
 The tentative navy, cream, and red palette can be adjusted in `src/data/client.config.ts`.
 
