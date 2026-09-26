@@ -24,6 +24,17 @@ import { clientConfig as config, TODO_CLIENT_CONFIRMATION } from "../data/client
       </div>
     </section>
 
+    <section class="section work-section" id="work" aria-labelledby="work-title">
+      <div class="shell">
+        <div class="section-heading"><div><p class="section-kicker">From the field</p><h2 id="work-title">Tatay Tim's aircon service work.</h2></div><p>Client-provided photos of air-conditioning service work.</p></div>
+        <div class="work-gallery">
+          {config.workGallery.map((photo) => (
+            <figure class="work-card"><img src={photo.src} alt={photo.alt} width="960" height="960" loading="lazy" /><figcaption>{photo.caption}</figcaption></figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <section class="section proof-section" aria-labelledby="proof-title">
       <div class="shell proof-grid">
         <div class="proof-intro"><p class="section-kicker">Tatay Tim's promise</p><h2 id="proof-title">Maayos ang trabaho. Tapat at mapagkakatiwalaan.</h2><p>“{config.identity.tagline}”</p><a class="text-link" href="#quote">Ask about your service need <Icon name="arrow" size={20} /></a></div>

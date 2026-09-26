@@ -59,6 +59,11 @@ export interface ClientConfig {
     title: string;
     description: string;
   }>;
+  workGallery: Array<{
+    src: string;
+    alt: string;
+    caption: string;
+  }>;
   trustPoints: Array<{
     label: string;
     detail: string;
@@ -126,7 +131,7 @@ export const clientConfig: ClientConfig = {
     trustChips: ["Split-type & window-type cleaning", "Maintenance, repair & installation", "Ask us about your unit"],
     media: {
       type: "image",
-      src: `${import.meta.env.BASE_URL}/media/tatay-tims-logo.jpeg`,
+      src: `${import.meta.env.BASE_URL}media/tatay-tims-logo.jpeg`,
       alt: "Tatay Tim's Aircon and Repairs badge logo with an illustrated technician",
       permission: "approved",
     },
@@ -153,6 +158,33 @@ export const clientConfig: ClientConfig = {
       icon: "repair",
       title: "Freon recharging",
       description: "Freon recharging service for air-conditioning units.",
+    },
+  ],
+  workGallery: [
+    {
+      src: `${import.meta.env.BASE_URL}/media/work/fb-aircon-repair.jpg`,
+      alt: "Technician inspecting an opened air-conditioning unit with repair tools",
+      caption: "Air-conditioning check-up and repair",
+    },
+    {
+      src: `${import.meta.env.BASE_URL}/media/work/fb-split-type-aircon-installation.jpg`,
+      alt: "Split-type air-conditioning unit and components during installation work",
+      caption: "Split-type air-conditioning installation",
+    },
+    {
+      src: `${import.meta.env.BASE_URL}/media/work/fb-split-type-aircon-recharging.jpg`,
+      alt: "Technician working on an outdoor split-type air-conditioning unit with refrigerant equipment",
+      caption: "Split-type air-conditioning recharging",
+    },
+    {
+      src: `${import.meta.env.BASE_URL}/media/work/fb-split-type-aircon.jpg`,
+      alt: "Technician servicing outdoor split-type air-conditioning units",
+      caption: "Split-type air-conditioning service",
+    },
+    {
+      src: `${import.meta.env.BASE_URL}/media/work/fb-wall-type-aircon.jpg`,
+      alt: "Technician working beside a wall-type air-conditioning unit",
+      caption: "Wall-type air-conditioning service",
     },
   ],
   trustPoints: [
