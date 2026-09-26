@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 900" role="img" aria-labelledby="title desc">
+  <title id="title">Aircon service media placeholder</title>
+  <desc id="desc">Abstract illustration of an aircon unit and airflow, intended to be replaced with approved client media.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d9f4ef"/><stop offset="1" stop-color="#f2c879"/></linearGradient>
+    <linearGradient id="unit" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#dbe7e8"/></linearGradient>
+  </defs>
+  <rect width="960" height="900" fill="url(#bg)"/>
+  <circle cx="780" cy="120" r="210" fill="#fff" opacity=".27"/>
+  <circle cx="120" cy="760" r="250" fill="#0d7f79" opacity=".1"/>
+  <g transform="translate(130 180)">
+    <rect width="700" height="260" rx="44" fill="url(#unit)" stroke="#103744" stroke-width="10"/>
+    <path d="M45 190h610" stroke="#103744" stroke-width="10" stroke-linecap="round"/>
+    <path d="M80 218h540" stroke="#15a7a0" stroke-width="16" stroke-linecap="round"/>
+    <circle cx="620" cy="70" r="14" fill="#15a7a0"/>
+  </g>
+  <g fill="none" stroke="#fff" stroke-width="20" stroke-linecap="round" opacity=".85">
+    <path d="M300 530c80 40 80 120 0 160"/>
+    <path d="M480 510c105 55 105 165 0 220"/>
+    <path d="M660 530c80 40 80 120 0 160"/>
+  </g>
+  <g transform="translate(80 790)"><rect width="800" height="72" rx="36" fill="#103744" opacity=".9"/><text x="400" y="46" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="26" font-weight="700">REPLACE WITH CLIENT-APPROVED PHOTO OR VIDEO</text></g>
+</svg>

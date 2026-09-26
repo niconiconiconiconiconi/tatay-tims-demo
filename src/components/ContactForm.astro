@@ -1,0 +1,97 @@
+---
+import Icon from "./Icon.astro";
+import { clientConfig as config } from "../data/client.config";
+---
+
+<section class="contact-section section" id="quote" aria-labelledby="quote-title">
+  <div class="shell contact-grid">
+    <div class="contact-copy">
+      <p class="section-kicker">Request a quote</p>
+      <h2 id="quote-title">Tell us what your aircon needs.</h2>
+      <p>Share a few details so the service provider can confirm coverage, scope, and the right next step.</p>
+      <div class="demo-note"><strong>Contact details:</strong> phone number and messaging links will be added after confirmation.</div>
+      {config.form.mode === "demo" && <div class="demo-note"><strong>Demo form:</strong> this preview does not send or store personal information.</div>}
+    </div>
+
+    <form
+      class="quote-form"
+      id="quote-form"
+      data-mode={config.form.mode}
+      data-endpoint={config.form.endpoint}
+      data-method={config.form.method}
+    >
+      <div class="field-grid">
+        <label><span>Name</span><input name="name" autocomplete="name" required placeholder="Your name" /></label>
+        <label><span>Contact number</span><input name="contact" type="tel" inputmode="tel" autocomplete="tel" required placeholder="09XX XXX XXXX" /></label>
+      </div>
+      <label><span>Location / barangay</span><input name="location" autocomplete="address-level3" required placeholder="Your service location" /></label>
+      <label><span>Service needed</span><select name="service" required><option value="">Select a service</option>{config.services.map((service) => <option value={service.title}>{service.title}</option>)}</select></label>
+      <label><span>Notes <small>(optional)</small></span><textarea name="notes" rows="4" placeholder="Unit type, issue, preferred schedule, or other helpful details"></textarea></label>
+      <button class="button button-primary button-large form-submit" type="submit"><Icon name="quote" /> Review enquiry</button>
+      <div class="form-status" id="form-status" role="status" aria-live="polite" tabindex="-1"></div>
+      <div class="enquiry-preview" id="enquiry-preview" hidden></div>
+      <p class="form-privacy">Do not enter sensitive information. A privacy notice must be added before enabling live delivery.</p>
+    </form>
+  </div>
+</section>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("#quote-form");
+  const status = document.querySelector<HTMLElement>("#form-status");
+  const preview = document.querySelector<HTMLElement>("#enquiry-preview");
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!form.reportValidity() || !status || !preview) return;
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+    const summary = [
+      ["Name", data.name],
+      ["Contact", data.contact],
+      ["Location", data.location],
+      ["Service", data.service],
+      ["Notes", data.notes || "None provided"],
+    ];
+
+    if (form.dataset.mode === "demo") {
+      status.className = "form-status is-demo";
+      status.textContent = "Demo only - nothing was sent. Review the enquiry summary below, then connect an approved form endpoint before launch.";
+      preview.innerHTML = `<h3>Enquiry preview</h3><dl>${summary.map(([label, value]) => `<div><dt>${escapeHtml(String(label))}</dt><dd>${escapeHtml(String(value))}</dd></div>`).join("")}</dl>`;
+      preview.hidden = false;
+      status.focus();
+      return;
+    }
+
+    if (!form.dataset.endpoint) {
+      status.className = "form-status is-error";
+      status.textContent = "Form delivery is not configured. Please call or message instead.";
+      status.focus();
+      return;
+    }
+
+    const submit = form.querySelector<HTMLButtonElement>("button[type=submit]");
+    if (submit) submit.disabled = true;
+    status.className = "form-status";
+    status.textContent = "Sending enquiry…";
+
+    try {
+      const response = await fetch(form.dataset.endpoint, { method: form.dataset.method || "POST", body: formData });
+      if (!response.ok) throw new Error("Delivery endpoint rejected the enquiry.");
+      window.dispatchEvent(new CustomEvent("analytics:form_success"));
+      status.className = "form-status is-success";
+      status.textContent = "Enquiry accepted by the configured form service.";
+      form.reset();
+    } catch {
+      status.className = "form-status is-error";
+      status.textContent = "The enquiry could not be delivered. Your details remain in the form; please call or message instead.";
+    } finally {
+      if (submit) submit.disabled = false;
+      status.focus();
+    }
+  });
+
+  function escapeHtml(value: string) {
+    return value.replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#039;", '"': "&quot;" })[character] || character);
+  }
+</script>

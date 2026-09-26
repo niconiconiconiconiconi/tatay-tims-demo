@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Icon from "../components/Icon.astro";
+import ContactForm from "../components/ContactForm.astro";
+import MobileActions from "../components/MobileActions.astro";
+import { clientConfig as config, TODO_CLIENT_CONFIRMATION } from "../data/client.config";
+---
+
+<BaseLayout>
+  <Header />
+  <main id="main-content">
+    <Hero />
+
+    <section class="section services" id="services" aria-labelledby="services-title">
+      <div class="shell">
+        <div class="section-heading"><div><p class="section-kicker">What Tatay Tim can help with</p><h2 id="services-title">Aircon care for a cooler, more comfortable home.</h2></div><p>Choose the service closest to what your unit needs.</p></div>
+        <div class="service-grid">
+          {config.services.map((service, index) => (
+            <article class="service-card"><span class="service-number">0{index + 1}</span><div class="service-icon"><Icon name={service.icon} size={30} /></div><h3>{service.title}</h3><p>{service.description}</p><a href="#quote">Ask about this service <Icon name="arrow" size={19} /></a></article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section proof-section" aria-labelledby="proof-title">
+      <div class="shell proof-grid">
+        <div class="proof-intro"><p class="section-kicker">Tatay Tim's promise</p><h2 id="proof-title">Maayos ang trabaho. Tapat at mapagkakatiwalaan.</h2><p>“{config.identity.tagline}”</p><a class="text-link" href="#quote">Ask about your service need <Icon name="arrow" size={20} /></a></div>
+        <div class="trust-grid">
+          {config.trustPoints.map((point) => (
+            <article class:list={["trust-card", point.confirmation === TODO_CLIENT_CONFIRMATION && "needs-confirmation"]}><Icon name="check" /><div><h3>{point.label}</h3><p>{point.detail}</p>{point.confirmation === TODO_CLIENT_CONFIRMATION && <span>Client confirmation required</span>}</div></article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section areas-section" id="areas" aria-labelledby="areas-title">
+      <div class="shell areas-grid">
+        <div class="area-map logo-showcase"><img src={`${import.meta.env.BASE_URL}/media/tatay-tims-logo.jpeg`} alt="Tatay Tim's Aircon and Repairs logo" width="960" height="1200" loading="lazy" /></div>
+        <div class="areas-copy"><p class="section-kicker">A local service concept</p><h2 id="areas-title">TASK - Kaagapay sa malamig na buhay.</h2><p>{config.serviceAreaSummary}</p><div class="area-prompt"><div><strong>Have a service question?</strong><span>Use the enquiry form to share what your aircon needs.</span></div><a class="button button-primary" href="#quote"><Icon name="quote" /> Make an enquiry</a></div></div>
+      </div>
+    </section>
+
+    <section class="section process-section" id="process" aria-labelledby="process-title">
+      <div class="shell"><div class="section-heading centered"><div><p class="section-kicker">How it works</p><h2 id="process-title">From first message to completed service.</h2></div></div><ol class="process-list">{config.process.map((item, index) => <li><span>{item.step}</span><div><h3>{item.title}</h3><p>{item.detail}</p></div>{index < config.process.length - 1 && <Icon name="arrow" size={26} />}</li>)}</ol></div>
+    </section>
+
+    <section class="section faq-section" id="faq" aria-labelledby="faq-title">
+      <div class="shell faq-grid"><div class="faq-intro"><p class="section-kicker">Frequently asked</p><h2 id="faq-title">A few useful details before you enquire.</h2><p>Service coverage, hours, and policies can be confirmed directly with Tatay Tim.</p><a class="button button-secondary" href="#quote"><Icon name="quote" /> Share your service need</a></div><div class="faq-list">{config.faqs.map((faq, index) => <details open={index === 0}><summary>{faq.question}<span aria-hidden="true">+</span></summary><div><p>{faq.answer}</p>{faq.confirmation === TODO_CLIENT_CONFIRMATION && <strong>Client confirmation required</strong>}</div></details>)}</div></div>
+    </section>
+
+    <ContactForm />
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-grid"><div><a class="brand footer-brand" href="#top"><span class="brand-mark">{config.identity.logoLetters}</span><span class="brand-copy"><strong>{config.identity.shortName}</strong><small>{config.identity.tagline}</small></span></a><p>Maayos ang trabaho, tapat at mapagkakatiwalaan, sa presyong kaibigan, lahat ay masisiyahan.</p></div><div><h2>Contact</h2><p>Contact details to be confirmed.</p></div><div><h2>Service area & hours</h2><p>{config.serviceAreaSummary}</p><p>{config.hours}</p></div><div><h2>Quick links</h2><a href="#services">Services</a><a href="#areas">About the service</a><a href="#quote">Make an enquiry</a></div></div>
+    <div class="shell footer-bottom"><span>© {new Date().getFullYear()} {config.identity.businessName}. Template preview.</span><a href="#top">Back to top ↑</a></div>
+  </footer>
+  <MobileActions />
+</BaseLayout>

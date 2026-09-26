@@ -1,0 +1,4 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "exclude": ["hvac-new-1.0.0/**", ".lavish/**", "dist/**"]
+}

@@ -1,0 +1,54 @@
+---
+import "../styles/global.css";
+import { clientConfig } from "../data/client.config";
+import { getFaqJsonLd, getLocalBusinessJsonLd, getThemeStyle } from "../lib/client";
+
+const localBusinessJsonLd = getLocalBusinessJsonLd(clientConfig);
+const faqJsonLd = getFaqJsonLd(clientConfig);
+const canonical = clientConfig.site.previewMode ? undefined : clientConfig.site.canonicalUrl;
+const ga4MeasurementId = clientConfig.analytics.ga4MeasurementId;
+const loadAnalytics = !clientConfig.site.previewMode && import.meta.env.PROD && /^G-[A-Z0-9]+$/.test(ga4MeasurementId);
+---
+
+<!doctype html>
+<html lang="en" style={getThemeStyle(clientConfig)}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="theme-color" content={clientConfig.brand.ink} />
+    <meta name="description" content={clientConfig.seo.description} />
+    <meta name="robots" content={clientConfig.site.previewMode ? "noindex,nofollow" : "index,follow"} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={clientConfig.seo.title} />
+    <meta property="og:description" content={clientConfig.seo.description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <title>{clientConfig.seo.title}</title>
+    {localBusinessJsonLd && <script type="application/ld+json" set:html={JSON.stringify(localBusinessJsonLd)} />}
+    {faqJsonLd && <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />}
+    {loadAnalytics && <script is:inline define:vars={{ ga4MeasurementId }}>
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function gtag(){window.dataLayer.push(arguments);};
+      window.gtag("js", new Date());
+      window.gtag("config", ga4MeasurementId);
+
+      document.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+        const link = target.closest("[data-ga4-event]");
+        if (!link) return;
+        const eventName = link.getAttribute("data-ga4-event");
+        const channel = link.getAttribute("data-ga4-channel");
+        if (eventName) window.gtag("event", eventName, channel ? { channel } : {});
+      });
+
+      window.addEventListener("analytics:form_success", () => {
+        window.gtag("event", "generate_lead", { form_type: "quote" });
+      });
+    </script>}
+    {loadAnalytics && <script async src={`https://www.googletagmanager.com/gtag/js?id=${ga4MeasurementId}`} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <slot />
+  </body>
+</html>

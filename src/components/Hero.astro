@@ -1,0 +1,44 @@
+---
+import Icon from "./Icon.astro";
+import { clientConfig as config, TODO_CLIENT_CONFIRMATION } from "../data/client.config";
+const media = config.hero.media;
+---
+
+<section class:list={["hero", `hero-variant-${config.hero.variant}`]} id="top" aria-labelledby="hero-heading">
+  <div class="shell hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow"><span></span>{config.hero.eyebrow}</p>
+      <h1 id="hero-heading">{config.hero.heading}</h1>
+      <p class="hero-lede">{config.hero.supportingText}</p>
+      <div class="hero-actions">
+        <a class="button button-primary button-large" href="#quote"><Icon name="quote" /> Ask about a service</a>
+        <a class="button button-secondary button-large" href="#services"><Icon name="check" /> Explore services</a>
+      </div>
+      <ul class="trust-chips" aria-label="Service highlights">
+        {config.hero.trustChips.map((chip) => <li><Icon name="check" size={17} /> {chip}</li>)}
+      </ul>
+      <p class="hero-meta"><Icon name="check" size={20} /> {config.identity.tagline}</p>
+    </div>
+
+    {config.hero.variant === "media" && media ? (
+      <figure class="hero-media">
+        {media.type === "image" ? (
+          <img src={media.src} alt={media.alt} width="960" height="900" fetchpriority="high" />
+        ) : (
+          <video controls playsinline muted poster={media.poster} preload="metadata">
+            <source src={media.src} />
+            {media.captions && <track kind="captions" src={media.captions} srclang="en" label="English" default />}
+          </video>
+        )}
+        {media.permission === TODO_CLIENT_CONFIRMATION && <figcaption>Media placeholder - client permission required before publishing</figcaption>}
+        <div class="media-card" aria-hidden="true"><strong>Tatay Tim's</strong><span>Kaagapay sa malamig na buhay</span></div>
+      </figure>
+    ) : (
+      <div class="hero-graphic" aria-hidden="true">
+        <div class="aircon-unit"><span></span><i></i></div>
+        <div class="airflow airflow-one"></div><div class="airflow airflow-two"></div><div class="airflow airflow-three"></div>
+        <div class="coverage-card"><Icon name="pin" /><strong>Local coverage</strong><span>[Service Area]</span></div>
+      </div>
+    )}
+  </div>
+</section>
